@@ -1,0 +1,335 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="./css/bootstrap.min.css" type="text/css">
+    <link rel="stylesheet" href="./css/dashbord.css">
+    <link rel="stylesheet" href="./font/bootstrap-icons-1.10.0/bootstrap-icons.css">
+    <script src="./js/echarts.js"></script>
+</head>
+
+<body>
+    <div class="row">
+        <div class="col-3">
+            <div class="card shadow" style="width: 18rem;">
+                <div class="card-body">
+                    <h6 class="card-subtitle mb-2 text-muted d-flex justify-content-between">
+                        <span>总销售额</span>
+                        <i class="bi bi-info-circle"></i>
+                    </h6>
+                    <h5 class="card-title" style="margin-bottom: 35px;">￥278956479</h5>
+                    <p class="card-text">
+                        <span>周同比&nbsp;&nbsp;56.2%&nbsp;<i class="bi bi-graph-up-arrow text-danger"></i></span>
+                        <span>日同比&nbsp;&nbsp;19.5%&nbsp;<i class="bi bi-graph-down-arrow text-success"></i></span>
+                    </p>
+                    <hr>
+                    <p><span>日销售额:￥132156</span></p>
+                </div>
+            </div>
+        </div>
+        <div class="col-3">
+            <div class="card shadow" style="width: 18rem;">
+                <div class="card-body">
+                    <h6 class="card-subtitle mb-2 text-muted d-flex justify-content-between">
+                        <span>访问量</span><i class="bi bi-info-circle"></i></h6>
+                    <h5 class="card-title"><i class="bi bi-person-fill"></i>&nbsp;1346531</h5>
+                    <div id="customer" style="width: 250px;height: 50px;"></div>
+                    <script>
+                        var chartDom = document.getElementById('customer');
+                        var myChart = echarts.init(chartDom);
+                        var option;
+                        option = {
+                            color: ['#80FFA5', '#00DDFF', '#37A2FF', '#FF0087', '#FFBF00'],
+                            grid: {
+                                x: 12,
+                                y: 1,
+                                x2: 10,
+                                y2: 0,
+                                borderWidth: 1
+                            },
+                            xAxis: [{
+                                type: 'category',
+                                boundaryGap: false,
+                                show: false,
+                                data: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat',
+                                    'Sun'
+                                ]
+                            }],
+                            yAxis: [{
+                                type: 'value',
+                                axisLine: {
+                                    show: false
+                                },
+                                axisTick: {
+                                    show: false
+                                },
+                                splitLine: {
+                                    show: false
+                                },
+                                show: false,
+                            }],
+                            series: [{
+                                name: 'Line 1',
+                                type: 'line',
+                                stack: 'Total',
+                                smooth: true,
+                                lineStyle: {
+                                    width: 0
+                                },
+                                showSymbol: false,
+                                areaStyle: {
+                                    opacity: 0.8,
+                                    color: new echarts.graphic.LinearGradient(0, 0,
+                                        0, 1, [{
+                                                offset: 0,
+                                                color: 'rgb(128, 255, 165)'
+                                            },
+                                            {
+                                                offset: 1,
+                                                color: 'rgb(1, 191, 236)'
+                                            }
+                                        ])
+                                },
+                                emphasis: {
+                                    focus: 'series'
+                                },
+                                data: [200, 333, 100, 420, 200, 340, 250]
+                            }]
+                        };
+                        option && myChart.setOption(option);
+                    </script>
+                    <hr>
+                    <p><span>日访问量：34897</span></p>
+                </div>
+            </div>
+        </div>
+        <div class="col-3">
+            <div class="card shadow" style="width: 18rem;">
+                <div class="card-body">
+                    <h6 class="card-subtitle mb-2 text-muted d-flex justify-content-between">
+                        <span>交易数量</span>
+                        <i class="bi bi-info-circle"></i>
+                    </h6>
+                    <h5 class="card-title">886412</h5>
+                    <div id="deal" style="width: 250px;height: 50px;"></div>
+                    <script>
+                        var chartDom = document.getElementById('deal');
+                        var myChart = echarts.init(chartDom);
+                        var option;
+
+                        option = {
+                            grid: {
+                                x: 12,
+                                y: 1,
+                                x2: 10,
+                                y2: 0,
+                                borderWidth: 1
+                            },
+                            xAxis: {
+                                type: 'category',
+                                show: false,
+                            },
+                            yAxis: {
+                                type: 'value',
+                                show: false
+                            },
+                            series: [{
+                                data: [120, 200, 150, 80, 70, 110, 130],
+                                type: 'bar',
+                                showBackground: true,
+                                backgroundStyle: {
+                                    color: 'rgba(180, 180, 180, 0.2)'
+                                }
+                            }]
+                        };
+
+                        option && myChart.setOption(option);
+                    </script>
+                    <hr>
+                    <p><span>转化率：89.9%</span></p>
+                </div>
+            </div>
+        </div>
+        <div class="col-3">
+            <div class="card shadow" style="width: 18rem;">
+                <div class="card-body">
+                    <h6 class="card-subtitle mb-2 text-muted d-flex justify-content-between">
+                        <span>运营活动效果</span>
+                        <i class="bi bi-info-circle"></i>
+                    </h6>
+                    <h5 class="card-title">82.5%</h5>
+                    <div id="operate" style="width: 250px;height: 108px;"></div>
+                    <script>
+                        var chartDom = document.getElementById('operate');
+                        var myChart = echarts.init(chartDom);
+                        var option;
+                        const gaugeData = [{
+                            value: 82.5,
+                            detail: {
+                                valueAnimation: true,
+                                offsetCenter: ['0%', '10%']
+                            }
+                        }];
+                        option = {
+                            grid: {
+                                x: 12,
+                                y: 1,
+                                x2: 10,
+                                y2: 0,
+                            },
+                            series: [{
+                                type: 'gauge',
+                                startAngle: 90,
+                                endAngle: -270,
+                                pointer: {
+                                    show: false
+                                },
+                                progress: {
+                                    show: true,
+                                    overlap: false,
+                                    roundCap: true,
+                                    clip: false,
+                                    itemStyle: {
+                                        borderWidth: 0.5,
+                                        borderColor: '#464646'
+                                    }
+                                },
+                                axisLine: {
+                                    lineStyle: {
+                                        width: 10
+                                    }
+                                },
+                                splitLine: {
+                                    show: false,
+                                    distance: 0,
+                                    length: 10
+                                },
+                                axisTick: {
+                                    show: false
+                                },
+                                axisLabel: {
+                                    show: false,
+                                    distance: 50
+                                },
+                                data: gaugeData,
+                                title: {
+                                    fontSize: 14
+                                },
+                                detail: {
+                                    width: 20,
+                                    height: 10,
+                                    fontSize: 12,
+                                    color: 'inherit',
+                                    borderColor: 'inherit',
+                                    borderRadius: 20,
+                                    formatter: '{value}%'
+                                }
+                            }]
+                        };
+                        option && myChart.setOption(option);
+                    </script>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="" style="height: 50px;"></div>
+    <div class="card text-center">
+        <div class="card-header">
+            <ul class="nav nav-tabs card-header-tabs">
+                <li class="nav-item">
+                    <a class="nav-link active" aria-current="true" href="#">销售额</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" aria-current="true" href="#">访问量</a>
+                </li>
+            </ul>
+        </div>
+        <div class="card-body row">
+            <div class="chart col-8" id="chart" style="height: 300px;"></div>
+            <script>
+                var chart_deal = document.getElementById('chart');
+                var myChart = echarts.init(chart_deal);
+                var option;
+                option = {
+                    tooltip: {
+                        trigger: 'axis',
+                        axisPointer: {
+                            type: 'shadow'
+                        }
+                    },
+                    grid: {
+                        left: '3%',
+                        right: '4%',
+                        bottom: '3%',
+                        containLabel: true
+                    },
+                    xAxis: [{
+                        type: 'category',
+                        data: ['麦当劳', 'Sanfu精品店', 'Adidas服装', 'Nike', '海底捞', '万达影城',
+                            '沃尔沃', '超级玩家', '惊奇密室', '大脑剧本杀', '蜜雪冰城', '室内滑雪场',
+                            '万达影城', '沃尔沃'
+                        ],
+                        axisTick: {
+                            alignWithLabel: true
+                        }
+                    }],
+                    yAxis: [{
+                        type: 'value'
+                    }],
+                    series: [{
+                        name: '金额（万元）',
+                        type: 'bar',
+                        barWidth: '60%',
+                        data: [10, 52, 200, 334, 390, 330, 220, 10, 52, 200, 334,
+                            390, 330, 220
+                        ]
+                    }]
+                };
+                option && myChart.setOption(option);
+            </script>
+            <div class="info col-4 border-start" style="height: 300px;">
+                <div class="row">
+                    <div class="col-6" style="height: 300px;">
+                        <div class="text-start" style="width: 100%;">
+                            <ul class="info_s">
+                                <li class="">店铺</li>
+                                <li class="">麦当劳</li>
+                                <li class="">Sanfu精品店</li>
+                                <li class="">麦当劳</li>
+                                <li class="">Sanfu精品店</li>
+                                <li class="">麦当劳</li>
+                                <li class="">Sanfu精品店</li>
+                                <li class="">Sanfu精品店</li>
+                                <li class="">麦当劳</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="col-6" style="height: 300px;">
+                        <div class="" style="width: 100%;">
+                            <ul class="info_s">
+                                <li class="">金额（万元）</li>
+                                <li class="">￥2789564</li>
+                                <li class="">￥2789564</li>
+                                <li class="">￥2789564</li>
+                                <li class="">￥2789564</li>
+                                <li class="">￥2789564</li>
+                                <li class="">￥2789564</li>
+                                <li class="">￥2789564</li>
+                                <li class="">￥2789564</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <a href="./商场管理系统的关于与管理使用.pdf">查看使用文档</a>
+    <script src="./js/jQuery.js"></script>
+    <script src="./js/bootstrap.min.js"></script>
+</body>
+
+</html>

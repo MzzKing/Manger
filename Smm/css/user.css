@@ -1,0 +1,14 @@
+*{
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+#user-info{
+    width: 400px;
+    margin: 20px auto;
+}
+
+#user-info div{
+    margin-bottom: 20px;
+}

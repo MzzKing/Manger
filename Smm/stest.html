@@ -1,0 +1,532 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="./css/stest.css">
+    <link rel="stylesheet" href="./css/bootstrap.min.css">
+    <link rel="stylesheet" href="./font/bootstrap-icons-1.10.0/bootstrap-icons.css">
+
+    <script src="./js/jQuery.js"></script>
+</head>
+
+<body>
+    <div class="">
+        <!-- <div class="card border border-0 position-relative mb-5" style="width: 100%;background-color: #F4F7FF;">
+            <i class="bi bi-exclamation-circle-fill f_info text-primary fs-5"></i>
+            <div class="card-body text-secondary p-4 ps-5">
+                <p class="card-text">1.请及时管理自己的店铺</p>
+                <p class="card-text">2.请确保自己的销售情况是否符合情况</p>
+                <p class="card-text">3.请清点自己的货物是否正确</p>
+                <p class="card-text">4.请确保自己的货物的状态</p>
+            </div>
+        </div> -->
+
+        <div class="d-flex">
+            <div class="input_id p-2 me-4 ps-3">
+                <span class="id_label text-body-tertiary">员工id</span>
+                <input type="text" name="EmployeeID" id="EmployeeID" class="border border-0 bg-input"
+                    autocomplete="off">
+            </div>
+            <div class="input_id p-2 me-4 ps-3">
+                <span class="id_label text-body-tertiary">员工姓名</span>
+                <input type="text" name="EmployeeName" id="EmployeeName" class="border border-0 bg-input"
+                    autocomplete="off">
+            </div>
+            <div class="input_id p-2 me-4 ps-3">
+                <span class="id_label text-body-tertiary">员工地址</span>
+                <input type="text" name="Address" id="Address" class="border border-0 bg-input" autocomplete="off">
+            </div>
+            <div class="input_id p-2 me-4 ps-3">
+                <span class="id_label text-body-tertiary">年龄</span>
+                <input type="number" name="EmployeeAge_low" id="EmployeeAge_low" class="border border-0 bg-input"
+                    autocomplete="off" style="width: 100px;">
+                <span>至</span>
+                <input type="number" name="EmployeeAge_high" id="EmployeeAge_high" class="border border-0 bg-input"
+                    autocomplete="off" style="width: 100px;">
+            </div>
+        </div>
+        <div class="d-flex">
+            <div class="input_id p-2 me-4 ps-3">
+                <span class="id_label text-body-tertiary">国家</span>
+                <!-- <input type="text" name="items_id" id="items_id" class="border border-0 bg-input"
+                    autocomplete="off"> -->
+                <select class="form-select Country" id="bg-select">
+                    <option selected value="">国家</option>
+                    <option value="中国">中国</option>
+                    <option value="美国">美国</option>
+                    <option value="日本">日本</option>
+                </select>
+            </div>
+
+
+            <div class="input_id p-2 me-4 ps-3">
+                <span class="id_label text-body-tertiary">工龄</span>
+                <input type="number" name="Seniority_low" id="Seniority_low" class="border border-0 bg-input"
+                    autocomplete="off" style="width: 100px;">
+                <span>至</span>
+                <input type="number" name="Seniority_high" id="Seniority_high" class="border border-0 bg-input"
+                    autocomplete="off" style="width: 100px;">
+            </div>
+
+            <div class="pt-2 me-3" style="height: 70px;"><button type="button" class="btn btn-outline-success"
+                    id="search">搜索</button></div>
+            <div class="text-body-tertiary pt-3"><i class="bi bi-cloud"></i><a href="javascript:;"
+                    class="cleared_condition text-body-tertiary">清除条件</a></div>
+        </div>
+
+        <div class="row mb-4">
+            <div class="col-2"><button type="button" class="btn btn-primary" id="addp" data-bs-toggle="modal"
+                data-bs-target="#exampleModal">添加员工</button></div>
+            <div class="col-1 pt-2"><span>已选</span></div>
+            <div class="col-2"><button type="button" class="btn btn-outline-secondary" id="delChecked">批量删除</button>
+            </div>
+            <div class="col-2"><button type="button" class="btn btn-outline-secondary" id="undercarriage">批量下架</button>
+            </div>
+            <div class="col-2">
+                <select class="form-select More_Actions">
+                    <option selected value="">更多批量操作</option>
+                    <option value="1" id="Shelves">批量上架</option>
+                    <option value="2">Two</option>
+                    <option value="3">Three</option>
+                </select>
+
+            </div>
+            <div class="col-2"><button type="button" class="btn btn-outline-primary"
+                    id="Confirm_operation">确定操作</button></div>
+            <div class="col-1 pt-2">共选<span class="number_sel">0</span>个员工</div>
+        </div>
+
+        <table class="table" id="stuffTable">
+            <thead id="goods_head">
+                <tr>
+                    <th>
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+                        </div>
+                    </th>
+                    <th>员工姓名</th>
+                    <th>年龄</th>
+                    <th>工龄</th>
+                    <th>国家</th>
+                    <th>联系方式</th>
+                    <th>操作</th>
+                </tr>
+            </thead>
+            <tbody id="tableBody">
+                <tr>
+                    <td colspan="8" class="text-center align-middle text-body-tertiary" style="height: 100px;">
+                        没有数据
+                    </td>
+                </tr>
+            </tbody>
+            <!-- Modal -->
+            <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel"
+                aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h1 class="modal-title fs-5" id="exampleModalLabel">员工基本信息</h1>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            <label for="merchant_name" class="fs-5 mb-2">EmployeeName:</label>
+                            <input class="form-control" id="merchant_name" type="text"
+                                aria-label="default input example">
+
+                            <label for="merchant_address" class="fs-5 mb-2">EmployeeAge:</label>
+                            <input class="form-control" id="merchant_address" type="text"
+                                aria-label="default input example">
+
+                            <label for="industry" class="fs-5 mb-2">Address:</label>
+                            <input class="form-control" id="industry" type="text" aria-label="default input example">
+
+                            <label for="brand" class="fs-5 mb-2">Country:</label>
+                            <select class="form-select" aria-label="Default select example">
+                                <option selected value="">国家</option>
+                                <option value="中国">中国</option>
+                                <option value="美国">美国</option>
+                                <option value="日本">日本</option>
+                              </select>
+
+                            <label for="manage_form" class="fs-5 mb-2">HomePhone:</label>
+                            <input class="form-control" id="manage_form" type="text" aria-label="default input example">
+
+                            <label for="business_scope" class="fs-5 mb-2">Seniority:</label>
+                            <input class="form-control" id="business_scope" type="text"
+                                aria-label="default input example">
+                        </div>
+                        <div class="modal-footer d-flex justify-content-between">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">取消</button>
+                            <button type="button" class="btn btn-primary confirmBtn">确定</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+        </table>
+        <nav aria-label="Page navigation example">
+            <ul class="pagination justify-content-center" id="pagination">
+            </ul>
+        </nav>
+    </div>
+    <script src="./js/popper.min.js"></script>
+    <script src="./js/bootstrap.min.js"></script>
+    <script src="./js/jquery.twbsPagination.min.js"></script>
+    <script>
+        var modalEl = document.querySelector('#exampleModal');
+        var modal = new bootstrap.Modal(modalEl, {
+            focus: true,
+            backdrop: 'static'
+        });
+        modalEl.addEventListener('show.bs.modal', function () {
+            // 模态框弹出时，给父页面添加半透明蒙层
+            $("#wrapper").append('<div class="modal-backdrop fade in"></div>');
+        });
+        modalEl.addEventListener('hide.bs.modal', function () {
+            // 模态框隐藏时，移除父页面的蒙层
+            $("#wrapper").find(".modal-backdrop").remove();
+        });
+    </script>
+    <script>
+        // 定义每页显示的条目数和当前页码
+        var currentPage = 1;
+        var $table = $('#stuffTable');
+        var $pagination = $('#pagination');
+        var $tableBody = $('#tableBody');
+        var search_data = {}
+
+        function loadTable(res, types) {
+            $tableBody.empty()
+            $.each(res.list, function (index, stuff) {
+                // 为每一条数据创建一个表格行
+                var $row = $('<tr>');
+                $row.append(
+                    '<td><div class="form-check"><input class="form-check-input" type="checkbox" value="" id="flexCheckDefault"></div></td>'
+                )
+                $row.append($('<td>').text(stuff.employeeName));
+                $row.append($('<td>').text(stuff.employeeAge));
+                $row.append($('<td>').text(stuff.seniority));
+                $row.append($('<td>').text(stuff.country));
+                $row.append($('<td>').text(stuff.homePhone));
+
+                // $row.append($('<td>').text(product.groundingTime));
+                // 创建编辑按钮
+                var $editBtn = $('<button>').attr({
+                        'type': 'button',
+                        "data-action": "edit", // 将 data-action 属性设置为 'edit'，以便更新操作时识别
+                        "data-product-id": stuff.employeeID // 保存商户 ID，用于更新操作
+                    })
+                    .addClass('btn btn-light')
+                    .attr('data-bs-toggle', 'modal')
+                    .attr('data-bs-target', '#exampleModal')
+                    .text('编辑');
+                $editBtn.on('click', function () {
+                    // 点击按钮时执行的操作
+                });
+                // 创建删除按钮
+                var $deleteBtn = $('<button>').attr({
+                        'type': 'button',
+                        "data-id": stuff.employeeID,
+                    })
+                    .addClass('btn btn-danger')
+                    .text('删除');
+                $deleteBtn.on('click', function () {
+                    if (confirm("是否删除？")) {
+                        // 点击按钮时执行的操作
+                        var id = $(this).attr("data-id");
+                        console.log(id)
+                        $.ajax({
+                            type: "DELETE",
+                            url: "http://127.0.0.1:8080/delstuff/" + id,
+                            success: function (data) {
+                                // 删除成功后的处理
+                                // 重新加载数据
+                                loadData(currentPage);
+                            },
+                            error: function (jqXHR, textStatus, errorThrown) {
+                                console.error(textStatus);
+                            }
+                        });
+                    }
+
+                });
+                // 将按钮添加到操作列
+                $row.append($('<td>').append($editBtn).append($deleteBtn));
+                // 将该表格行添加到表格中
+                $table.find('tbody').append($row);
+            });
+
+            if (types === "search") {
+                $pagination.twbsPagination({
+                    totalPages: res.pages, // 总页数
+                    visiblePages: res.navigatePages, // 显示的页码数
+                    onPageClick: function (event, page) {
+                        // 点击页码时执行的操作
+                        currentPage = page;
+                        loadSearch(currentPage, search_data)
+                    }
+                });
+            } else if (types === "alldata") {
+                $pagination.twbsPagination({
+                    totalPages: res.pages, // 总页数
+                    visiblePages: res.navigatePages, // 显示的页码数
+                    onPageClick: function (event, page) {
+                        // 点击页码时执行的操作
+                        currentPage = page;
+                        loadData(currentPage)
+                    }
+                });
+            } else if (types === 1) {
+                $pagination.twbsPagination({
+                    totalPages: res.pages, // 总页数
+                    visiblePages: res.navigatePages, // 显示的页码数
+                    onPageClick: function (event, page) {
+                        // 点击页码时执行的操作
+                        currentPage = page;
+                        loadproductByStatus(currentPage, 1)
+                    }
+                });
+            } else if (types === 0) {
+                $pagination.twbsPagination({
+                    totalPages: res.pages, // 总页数
+                    visiblePages: res.navigatePages, // 显示的页码数
+                    onPageClick: function (event, page) {
+                        // 点击页码时执行的操作
+                        currentPage = page;
+                        loadproductByStatus(currentPage, 0)
+                    }
+                });
+            }
+        }
+
+        function loadData(pageNo) {
+            $.ajax({
+                type: "GET", // 请求方式，可以选择"GET"或"POST"
+                url: "http://127.0.0.1:8080/stuff/" + parseInt(pageNo), // 服务器端接收请求的地址
+                contentType: "application/json; charset=utf-8", // 设置请求头信息
+                success: function (res) { // 成功回调函数
+                    console.log(res)
+                    loadTable(res, "alldata");
+                },
+                error: function (xhr, status, error) { // 失败回调函数
+                    alert(error);
+                }
+            })
+        }
+        loadData(currentPage)
+
+        // 给thead中的checkbox绑定点击事件
+        $("#goods_head input[type='checkbox']").on("click", function () {
+            // 获取thead中的checkbox的选中状态
+            var isChecked = $(this).is(':checked');
+            // 将tbody中的所有checkbox设为相同的选中状态
+            $("#tableBody input[type='checkbox']").prop('checked', isChecked);
+        });
+
+        // 给tbody中的checkbox绑定点击事件
+        $("#tableBody").on("click", "input[type='checkbox']", function () {
+            // 获取tbody中所有checkbox的个数
+            var allLength = $("#tableBody input[type='checkbox']").length;
+            // 获取已选中的checkbox的个数
+            var checkedLength = $("#tableBody input[type='checkbox']:checked").length;
+            // 判断tbody中的checkbox是否全部选中
+            var allChecked = allLength == checkedLength;
+            // 将thead中的checkbox设为相同的选中状态
+            $("#goods_head input[type='checkbox']").prop('checked', allChecked);
+        });
+
+        // 给批量删除按钮绑定点击事件
+        $("#delChecked").on("click", function () {
+            var ids = []; // 定义一个空数组用于存储选中行的id
+            $('#productTable tbody tr').each(function () {
+                if ($(this).find('input[type="checkbox"]').prop('checked')) { // 判断该行是否选中
+                    ids.push($(this).find('button[data-id]').attr('data-id')); // 将该行的id添加到ids数组中
+                }
+            });
+
+            console.log(ids); // 打印选中行的id数据
+
+            if (ids.length === 0) {
+                alert("未选中数据")
+            } else {
+                $.ajax({
+                    type: "POST",
+                    url: "http://127.0.0.1:8080/deleteGoods",
+                    contentType: "application/json; charset=utf-8",
+                    data: JSON.stringify(ids),
+                    success: function (result) {
+                        console.log(result);
+                        loadData(currentPage)
+                    },
+                    error: function (xhr, status, error) {
+                        console.error(error);
+                    }
+                });
+            }
+        });
+
+        $('.cleared_condition').click(function () {
+            $('input[type="text"]').val('');
+            $('input[type="number"]').val('');
+            $('select').prop('selectedIndex', 0);
+        });
+
+        $("#search").click(function () {
+            var EmployeeID = $('#EmployeeID').val();
+            var EmployeeName = $('#EmployeeName').val();
+            var Address = $('#Address').val();
+            var EmployeeAge_low = $('#EmployeeAge_low').val();
+            var EmployeeAge_high = $('#EmployeeAge_high').val();
+            var Country = $('.Country option:selected').val();
+            var Seniority_low = $('#Seniority_low').val();
+            var Seniority_high = $('#Seniority_high').val();
+            search_data = {
+                employeeID: EmployeeID,
+                employeeName: EmployeeName,
+                address: Address,
+                employeeAge_low: EmployeeAge_low,
+                employeeAge_high: EmployeeAge_high,
+                country: Country,
+                seniority_low: Seniority_low,
+                seniority_high: Seniority_high,
+            }
+            console.log(search_data)
+            $pagination.twbsPagination('destroy');
+            loadSearch(currentPage, search_data);
+        });
+
+        function loadSearch(currentPage, search_data) {
+            // 发送Ajax请求
+            $.ajax({
+                type: "POST",
+                url: "http://127.0.0.1:8080/searchStuff/" + currentPage,
+                contentType: "application/json; charset=utf-8",
+                data: JSON.stringify(search_data),
+                success: function (data) {
+                    console.log(data)
+                    loadTable(data, "search")
+                },
+                error: function (error) {
+                    console.log(error);
+                }
+            });
+        }
+
+        // 为复选框添加 change 事件处理程序
+        $('#stuffTable').on('change', 'input[type="checkbox"]', function () {
+            // 获取所有被选中的复选框
+            const $selectedCheckboxes = $('#tableBody input[type="checkbox"]:checked');
+
+            // 更新显示数量的 span 标签
+            $('.number_sel').text($selectedCheckboxes.length);
+        });
+
+        // 给批量下架按钮绑定点击事件
+        $("#undercarriage").on("click", function () {
+            var ids = []; // 定义一个空数组用于存储选中行的id
+            $('#productTable tbody tr').each(function () {
+                if ($(this).find('input[type="checkbox"]').prop('checked')) { // 判断该行是否选中
+                    ids.push($(this).find('button[data-id]').attr('data-id')); // 将该行的id添加到ids数组中
+                }
+            });
+
+            console.log(ids); // 打印选中行的id数据
+
+            if (ids.length === 0) {
+                alert("未选中数据")
+            } else {
+                $.ajax({
+                    type: "POST",
+                    url: "http://127.0.0.1:8080/offSlef",
+                    contentType: "application/json; charset=utf-8",
+                    data: JSON.stringify(ids),
+                    success: function (result) {
+                        console.log(result);
+                        loadData(currentPage)
+                    },
+                    error: function (xhr, status, error) {
+                        console.error(error);
+                    }
+                });
+            }
+        });
+
+        // 给确定操作按钮绑定点击事件
+        $("#Confirm_operation").on("click", function () {
+            var ids = []; // 定义一个空数组用于存储选中行的id
+            $('#productTable tbody tr').each(function () {
+                if ($(this).find('input[type="checkbox"]').prop('checked')) { // 判断该行是否选中
+                    ids.push($(this).find('button[data-id]').attr('data-id')); // 将该行的id添加到ids数组中
+                }
+            });
+
+            console.log(ids); // 打印选中行的id数据
+            var More_Actions = $('.More_Actions option:selected').val();
+            console.log(More_Actions)
+            if (ids.length === 0) {
+                alert("未选中数据")
+            } else {
+                if (More_Actions === "1") {
+                    Shelves(ids)
+                } else {
+                    console.log("其他操作")
+                }
+            }
+        });
+
+        function Shelves(ids) {
+            $.ajax({
+                type: "POST",
+                url: "http://127.0.0.1:8080/Shelves",
+                contentType: "application/json; charset=utf-8",
+                data: JSON.stringify(ids),
+                success: function (result) {
+                    console.log(result);
+                    loadData(currentPage)
+                },
+                error: function (xhr, status, error) {
+                    console.error(error);
+                }
+            });
+        }
+        $('#nav_shop a').click(function () {
+            var action = $(this).attr("data-action");
+            if (action === "allproduct") {
+                $pagination.twbsPagination('destroy');
+                loadData(currentPage);
+            } else if (action === "productOfsale") {
+                $pagination.twbsPagination('destroy');
+                loadproductByStatus(currentPage, 1);
+            } else if (action === "productInwarehouse") {
+                $pagination.twbsPagination('destroy');
+                loadproductByStatus(currentPage, 0);
+            } else {
+
+            }
+        });
+
+        function loadproductByStatus(currentPage, status) {
+            // 发送Ajax请求
+            $.ajax({
+                type: "GET",
+                url: "http://127.0.0.1:8080/loadproductByStatus/" + currentPage + "?status=" + status,
+                contentType: "application/json; charset=utf-8",
+                success: function (data) {
+                    console.log(data)
+                    loadTable(data, status)
+                },
+                error: function (error) {
+                    console.log(error);
+                }
+            });
+        }
+        $('#addp').click(function () {
+            
+        });
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.yyq.storeback.mapper.StuffMapper">
+<!--    public List<Stuff> getStuffs();-->
+    <select id="getStuffs" resultType="com.yyq.storeback.pojo.Stuff">
+        select * from employees
+    </select>
+
+<!--    public void delStuff(Integer id);-->
+    <delete id="delStuff" parameterType="java.lang.Integer">
+        DELETE FROM employees WHERE EmployeeID = #{id}
+    </delete>
+
+<!--    public List<Stuff> searchStuff(SearchStuff searchStuff);-->
+    <select id="searchStuff" parameterType="com.yyq.storeback.pojo.SearchStuff" resultType="com.yyq.storeback.pojo.Stuff">
+        SELECT *
+        FROM employees
+        WHERE 1=1
+        AND (EmployeeID = #{employeeID} OR #{employeeID} IS NULL)
+        AND (EmployeeName LIKE CONCAT('%',#{employeeName},'%') OR #{employeeName} IS NULL)
+        AND (Address LIKE CONCAT('%',#{address},'%') OR #{address} IS NULL)
+        AND (Country = #{country} OR #{country} IS NULL)
+        AND (EmployeeAge BETWEEN #{employeeAge_low} AND #{employeeAge_high} OR #{employeeAge_low} IS NULL OR #{employeeAge_high} IS NULL)
+        AND (Seniority BETWEEN #{seniority_low} AND #{seniority_high} OR #{seniority_low} IS NULL OR #{seniority_high} IS NULL)
+    </select>
+
+</mapper>

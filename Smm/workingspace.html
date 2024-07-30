@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="./css/workingspace.css">
+    <link rel="stylesheet" href="./css/bootstrap.min.css">
+    <link rel="stylesheet" href="./font/bootstrap-icons-1.10.0/bootstrap-icons.css">
+    <script src="./js/jQuery.js"></script>
+</head>
+
+<body>
+    <div class="container-fluid top_bar">
+        <div class="container p-2">
+            <div class="nav_bar">
+                <ul class="nav nav-pills">
+                    <li class="nav-item">
+                        <a class="nav-link active" aria-current="page" href="./workingspace.html">店铺主页</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="./working_shopping.html">商品管理</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">员工管理</a>
+                    </li>
+                    <li style="width: 60%;"></li>
+                    <li class="d-flex user_a" style="cursor: pointer;">
+                        <div class="p-2">
+                            <img src="./images/avater.png" alt="" width="30px" height="30px" class="img align-middle">
+                        </div>
+                        <div class="userArea">
+                            <div class="userName">jerk的店铺</div>
+                            <div class="userWraper text-body-tertiary">jerk</div>
+                        </div>
+                        <i class="bi bi-chevron-down" style="line-height: 40px;font-size: 5px;"></i>
+                        <div class="drop shadow-sm border border-light-subtle" style="padding:12px 18px 0;">
+                            <div class="p-2" style="height: 50px;"><i class="bi bi-person-circle"></i><span
+                                    class="align-middle"><a href="./working_user.html" style="text-decoration: none;" class="text-body-tertiary">账户信息</a></span></div>
+                            <div class="p-2" style="height: 50px;"><i class="bi bi-shop-window"></i><span
+                                    class="align-middle"><a href="./woring_store.html" style="text-decoration: none;" class="text-body-tertiary">店铺信息</a></span></div>
+                            <div class="hr"></div>
+                            <div class="p-2" style="height: 50px;"><span class="align-middle">退出当前账号</span></div>
+                        </div>
+                    </li>
+                    <script>
+                        $(function () {
+                            $('.user_a').hover(function () {
+                                $('.drop').css('display', 'block')
+                            })
+                            $('.user_a').mouseleave(function () {
+                                $('.drop').css('display', 'none')
+                            })
+                        })
+                    </script>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <div class="container-fluid">
+        <div class="container pt-4">
+            <div class="d-flex">
+                <div class="con_right">
+                    <div class="card m-0 mb-3 border border-0"
+                        style="width: 100%;background-color: #F7F8FA;height: 120px;cursor: pointer;">
+                        <div class="row g-0">
+                            <div class="col-md-1"></div>
+                            <div class="col-md-3">
+                                <img src="./images/logo.png" class="rounded-start" height="120px" alt="...">
+                            </div>
+                            <div class="col-md-8">
+                                <div class="card-body d-flex" style="height: 100%;">
+                                    <div class="logo p-2">
+                                        <img src="./images/logo_1.png" alt="..." width="50px" height="50px"
+                                            style="margin-right: 10px;">
+                                    </div>
+                                    <div class="info p-2">
+                                        <div class="title fs-5 mb-2">发布商品</div>
+                                        <div class="text-light-emphasis">完成一次商品发布</div>
+                                    </div>
+                                    <div class="ms-auto btn_fa"><button type="button" class="btn btn-primary btn-sm"
+                                            id="addp">发布商品</button></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div style="height: 30px;"></div>
+                    <div class="card mb-3 border border-0"
+                        style="width: 100%;background-color: #F7F8FA;height: 120px;cursor: pointer;">
+                        <div class="row g-0">
+                            <div class="col-md-1"></div>
+                            <div class="col-md-3">
+                                <img src="./images/logo.png" class="rounded-start" height="120px" alt="...">
+                            </div>
+                            <div class="col-md-8">
+                                <div class="card-body d-flex" style="height: 100%;">
+                                    <div class="logo p-2">
+                                        <img src="./images/logo_1.png" alt="..." width="50px" height="50px"
+                                            style="margin-right: 10px;">
+                                    </div>
+                                    <div class="info p-2">
+                                        <div class="title fs-5 mb-2">店铺信息</div>
+                                        <div class="text-light-emphasis">完善店铺信息</div>
+                                    </div>
+                                    <div class="ms-auto btn_fa"><button type="button"
+                                            class="btn btn-primary btn-sm">完善信息</button></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div style="height: 30px;"></div>
+                    <div class="card mb-3 border border-0"
+                        style="width: 100%;background-color: #1779F4;height: 120px;cursor: pointer;">
+                        <div class="row g-0 h-100 data_m">
+                            <div class="col p-2 pt-3" style="border-radius: 6px 0 0 6px;">
+                                <div class="fs-1 text-light text-center">0</div>
+                                <div class="text-white-50 text-center">库存</div>
+                            </div>
+                            <div class="col p-2 pt-3">
+                                <div class="fs-1 text-light text-center">0</div>
+                                <div class="text-white-50 text-center">库存</div>
+                            </div>
+                            <div class="col p-2 pt-3">
+                                <div class="fs-1 text-light text-center">0</div>
+                                <div class="text-white-50 text-center">库存</div>
+                            </div>
+                            <div class="col p-2 pt-3">
+                                <div class="fs-1 text-light text-center">0</div>
+                                <div class="text-white-50 text-center">库存</div>
+                            </div>
+                            <div class="col p-2 pt-3">
+                                <div class="fs-1 text-light text-center">0</div>
+                                <div class="text-white-50 text-center">库存</div>
+                            </div>
+                            <div class="col p-2 pt-3" style="border-radius: 0 6px 6px 0;">
+                                <div class="fs-1 text-light text-center">0</div>
+                                <div class="text-white-50 text-center">库存</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div style="height: 30px;"></div>
+                    <div>
+                        <div class="mb-4">店铺数据&nbsp;<span>数据更新时间：2023-05-10 16:16:00</span></div>
+                        <div class="target">
+                            <div class="d-flex justify-content-between mb-5">
+                                <div class="card border border-0 me-2" style="width: 13rem;background-color: #F7F8FA;">
+                                    <div class="card-body">
+                                        <div class="text-body-tertiary mb-2" style="font-size: 13px;">支付金额</div>
+                                        <div class="fs-4 mb-2">0</div>
+                                        <div class="text-body-tertiary">昨日<span class="text-body">0</span></div>
+                                    </div>
+                                </div>
+                                <div class="card border border-0 me-2" style="width: 13rem;background-color: #F7F8FA;">
+                                    <div class="card-body">
+                                        <div class="text-body-tertiary mb-2" style="font-size: 13px;">支付金额</div>
+                                        <div class="fs-4 mb-2">0</div>
+                                        <div class="text-body-tertiary">昨日<span class="text-body">0</span></div>
+                                    </div>
+                                </div>
+                                <div class="card border border-0 me-2" style="width: 13rem;background-color: #F7F8FA;">
+                                    <div class="card-body">
+                                        <div class="text-body-tertiary mb-2" style="font-size: 13px;">支付金额</div>
+                                        <div class="fs-4 mb-2">0</div>
+                                        <div class="text-body-tertiary">昨日<span class="text-body">0</span></div>
+                                    </div>
+                                </div>
+                                <div class="card border border-0" style="width: 13rem;background-color: #F7F8FA;">
+                                    <div class="card-body">
+                                        <div class="text-body-tertiary mb-2" style="font-size: 13px;">支付金额</div>
+                                        <div class="fs-4 mb-2">0</div>
+                                        <div class="text-body-tertiary">昨日<span class="text-body">0</span></div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="d-flex justify-content-between">
+                                <div class="card border border-0 me-2" style="width: 13rem;background-color: #F7F8FA;">
+                                    <div class="card-body">
+                                        <div class="text-body-tertiary mb-2" style="font-size: 13px;">支付金额</div>
+                                        <div class="fs-4 mb-2">0</div>
+                                        <div class="text-body-tertiary">昨日<span class="text-body">0</span></div>
+                                    </div>
+                                </div>
+                                <div class="card border border-0 me-2" style="width: 13rem;background-color: #F7F8FA;">
+                                    <div class="card-body">
+                                        <div class="text-body-tertiary mb-2" style="font-size: 13px;">支付金额</div>
+                                        <div class="fs-4 mb-2">0</div>
+                                        <div class="text-body-tertiary">昨日<span class="text-body">0</span></div>
+                                    </div>
+                                </div>
+                                <div class="card border border-0 me-2" style="width: 13rem;background-color: #F7F8FA;">
+                                    <div class="card-body">
+                                        <div class="text-body-tertiary mb-2" style="font-size: 13px;">支付金额</div>
+                                        <div class="fs-4 mb-2">0</div>
+                                        <div class="text-body-tertiary">昨日<span class="text-body">0</span></div>
+                                    </div>
+                                </div>
+                                <div class="card border border-0" style="width: 13rem;background-color: #F7F8FA;">
+                                    <div class="card-body">
+                                        <div class="text-body-tertiary mb-2" style="font-size: 13px;">支付金额</div>
+                                        <div class="fs-4 mb-2">0</div>
+                                        <div class="text-body-tertiary">昨日<span class="text-body">0</span></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="con_left ms-auto">
+                    <div class="card border border-0 p-3" style="background-color: #F3F3FE;width: 350px;">
+                        <div class="fs-3 mb-2"><span>Jerk</span>的店铺</div>
+                        <div class="text-light-emphasis mb-2" style="font-size: 12px;">综合体验分&nbsp;<span
+                                class="text-body">--><span></div>
+                        <div class="card border border-0 p-2"
+                            style="background-color: #FEFFFF; width: 300px;cursor: pointer;">
+                            <div class="d-flex justify-content-start description">
+                                <div class="me-3" style="width: 40px;">
+                                    <div class="mt-2 mb-1">描述</div>
+                                    <div>0.0&nbsp;_</div>
+                                </div>
+                                <div class="me-3" style="width: 40px;">
+                                    <div class="mt-2 mb-1">服务</div>
+                                    <div>0.0&nbsp;_</div>
+                                </div>
+                                <div class="me-3" style="width: 40px;">
+                                    <div class="mt-2 mb-1">环境</div>
+                                    <div>0.0&nbsp;_</div>
+                                </div>
+                                <div class="v_hr"></div>
+                                <div class="ms-auto me-3 mt-2">
+                                    <div>信用等级</div>
+                                    <div class="badge text-bg-warning">信用良好</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="./js/bootstrap.min.js"></script>
+    <script>
+        $('#addp').click(function () {
+            window.location.href = './working_addProduct.html'
+        });
+    </script>
+</body>
+
+</html>

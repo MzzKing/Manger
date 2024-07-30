@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="./css/workingspace.css">
+    <link rel="stylesheet" href="./css/bootstrap.min.css">
+    <link rel="stylesheet" href="./font/bootstrap-icons-1.10.0/bootstrap-icons.css">
+    <link rel="stylesheet" href="./css/user.css">
+    <script src="./js/jQuery.js"></script>
+</head>
+
+<body>
+    <div class="container-fluid top_bar">
+        <div class="container p-2">
+            <div class="nav_bar">
+                <ul class="nav nav-pills">
+                    <li class="nav-item">
+                        <a class="nav-link active" aria-current="page" href="./workingspace.html">店铺主页</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="./working_shopping.html">商品管理</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">员工管理</a>
+                    </li>
+                    <li style="width: 60%;"></li>
+                    <li class="d-flex user_a" style="cursor: pointer;">
+                        <div class="p-2">
+                            <img src="./images/avater.png" alt="" width="30px" height="30px" class="img align-middle">
+                        </div>
+                        <div class="userArea">
+                            <div class="userName">jerk的店铺</div>
+                            <div class="userWraper text-body-tertiary">jerk</div>
+                        </div>
+                        <i class="bi bi-chevron-down" style="line-height: 40px;font-size: 5px;"></i>
+                        <div class="drop shadow-sm border border-light-subtle" style="padding:12px 18px 0;">
+                            <div class="p-2" style="height: 50px;"><i class="bi bi-person-circle"></i><span
+                                    class="align-middle"><a href="./working_user.html" style="text-decoration: none;"
+                                        class="text-body-tertiary">账户信息</a></span></div>
+                            <div class="p-2" style="height: 50px;"><i class="bi bi-shop-window"></i><span
+                                    class="align-middle"><a href="./woring_store.html" style="text-decoration: none;"
+                                        class="text-body-tertiary">店铺信息</a></span></div>
+                            <div class="hr"></div>
+                            <div class="p-2" style="height: 50px;"><span class="align-middle">退出当前账号</span></div>
+                        </div>
+                    </li>
+                    <script>
+                        $(function () {
+                            $('.user_a').hover(function () {
+                                $('.drop').css('display', 'block')
+                            })
+                            $('.user_a').mouseleave(function () {
+                                $('.drop').css('display', 'none')
+                            })
+                        })
+                    </script>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <div class="container-fluid">
+        <div class="container pt-4">
+            <div id="user-info">
+                <div><span>昵称：</span><div class="nickname d-inline-block"></div></div>
+                <div><span>介绍：</span><div class="introduction d-inline-block"></div></div>
+                <div><span>性别：</span><div class="sex d-inline-block"></div></div>
+                <div><span>电话号码：</span><div class="phone d-inline-block"></div></div>
+            </div>
+        </div>
+    </div>
+    <script src="./js/bootstrap.min.js"></script>
+    <script>
+        var user = JSON.parse(window.localStorage.getItem("User"))
+        $('#user-info .nickname').text(user.nickname);
+        $('#user-info .introduction').text(user.introduction);
+        $('#user-info .sex').text(user.sex === 0 ? '女' : '男');
+        $('#user-info .phone').text(user.phone);
+    </script>
+</body>
+
+</html>

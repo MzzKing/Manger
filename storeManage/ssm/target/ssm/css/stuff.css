@@ -1,0 +1,11 @@
+
+.con_left{
+    position: fixed;
+    overflow: hidden;
+    margin-bottom: -10000px;
+    padding-bottom: 10000px;
+}
+
+.con_right{
+    margin-left: 250px;
+}

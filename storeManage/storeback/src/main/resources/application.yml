@@ -1,0 +1,43 @@
+spring:
+  main:
+    allow-circular-references: true
+  datasource:
+    url: jdbc:mysql://localhost:3306/shopmanage?useUnicode=true&characterEncoding=utf-8&useSSL=false
+    username: root
+    password: 123456
+    driver-class-name: com.mysql.jdbc.Driver
+
+    druid:
+      aop-patterns: com.yyq.storeback.*  #??SpringBean
+      filters: stat,wall     # ???????stat?sql????wall?????
+
+      stat-view-servlet: # ???????
+        enabled: true
+        login-username: admin
+        login-password: admin
+        resetEnable: false
+
+      web-stat-filter: # ??web
+        enabled: true
+        urlPattern: /*
+        exclusions: '*.js,*.gif,*.jpg,*.png,*.css,*.ico,/druid/*'
+
+
+      filter:
+        stat: # ???filters???stat?????
+          slow-sql-millis: 1000
+          logSlowSql: true
+          enabled: true
+        wall:
+          enabled: true
+          config:
+            drop-table-allow: false
+
+# ??mybatis??
+mybatis:
+  mapper-locations: classpath:mybatis/mapper/*.xml
+    # ?????????????????????????configuration??????
+  configuration:
+    map-underscore-to-camel-case: true # 下划线转驼峰
+server:
+  port: 8087

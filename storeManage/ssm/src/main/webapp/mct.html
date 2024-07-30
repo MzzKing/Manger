@@ -1,0 +1,435 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="./css/bootstrap.min.css" type="text/css">
+    <link rel="stylesheet" href="./css/index.css">
+    <link rel="stylesheet" href="./font/bootstrap-icons-1.10.0/bootstrap-icons.css">
+    <script src="./js/echarts.js"></script>
+    <link rel="stylesheet" href="./css/dashbord.css">
+</head>
+
+<body>
+    <div class="d-flex justify-content-between">
+        <div class="btn-group" role="group" aria-label="Default button group">
+            <button type="button" class="btn btn-outline-dark industry_btn">服装</button>
+            <button type="button" class="btn btn-outline-dark industry_btn">餐饮</button>
+            <button type="button" class="btn btn-outline-dark industry_btn">娱乐</button>
+            <button type="button" class="btn btn-outline-dark industry_btn">其他</button>
+        </div>
+        <div style="width: 500px;" class="">
+            <div class="input-group">
+                <input type="text" class="form-control search" placeholder="店铺名称" aria-label="店铺名称"
+                    aria-describedby="button-addon2">
+                <button class="btn btn-outline-secondary" type="button" id="button-addon2">搜索</button>
+            </div>
+        </div>
+    </div>
+    <div style="height: 30px;"></div>
+    <div><button type="button" class="btn btn-primary add_store" data-bs-toggle="modal"
+            data-bs-target="#exampleModal">添加店铺基本信息</button></div>
+    <div style="height: 50px;"></div>
+    <table class="table table-striped table-hover align-middle" id="merchantTable">
+        <thead>
+            <tr>
+                <th scope="col">merchant_id</th>
+                <th scope="col">merchant_name</th>
+                <th scope="col">merchant_address</th>
+                <th scope="col">industry</th>
+                <th scope="col">brand</th>
+                <th scope="col">manage_form</th>
+                <th scope="col">business_scope</th>
+                <th scope="col">operation</th>
+            </tr>
+        </thead>
+        <tbody id="tableBody">
+            <!-- <tr>
+                <th scope="row">1</th>
+                <td>Nike服装店</td>
+                <td>万达广场二楼</td>
+                <td>服装</td>
+                <td>Nike</td>
+                <td>线下</td>
+                <td>衣服，鞋子</td>
+                <td>
+                    <button type="button" class="btn btn-light" data-bs-toggle="modal"
+                        data-bs-target="#exampleModal">编辑</button>
+                    <button type="button" class="btn btn-danger">删除</button>
+                </td>
+            </tr> -->
+        </tbody>
+        <!-- Modal -->
+        <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h1 class="modal-title fs-5" id="exampleModalLabel">商户基本信息</h1>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <label for="merchant_name" class="fs-5 mb-2">merchant_name:</label>
+                        <input class="form-control" id="merchant_name" type="text" aria-label="default input example">
+
+                        <label for="merchant_address" class="fs-5 mb-2">merchant_address:</label>
+                        <input class="form-control" id="merchant_address" type="text"
+                            aria-label="default input example">
+
+                        <label for="industry" class="fs-5 mb-2">industry:</label>
+                        <input class="form-control" id="industry" type="text" aria-label="default input example">
+
+                        <label for="brand" class="fs-5 mb-2">brand:</label>
+                        <input class="form-control" id="brand" type="text" aria-label="default input example">
+
+                        <label for="manage_form" class="fs-5 mb-2">manage_form:</label>
+                        <input class="form-control" id="manage_form" type="text" aria-label="default input example">
+
+                        <label for="business_scope" class="fs-5 mb-2">business_scope:</label>
+                        <input class="form-control" id="business_scope" type="text" aria-label="default input example">
+                    </div>
+                    <div class="modal-footer d-flex justify-content-between">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">取消</button>
+                        <button type="button" class="btn btn-primary confirmBtn">确定</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </table>
+    <nav aria-label="Page navigation example">
+        <ul class="pagination justify-content-center" id="pagination">
+        </ul>
+    </nav>
+
+    <script src="./js/jQuery.js"></script>
+    <script src="./js/popper.min.js"></script>
+    <script src="./js/bootstrap.min.js"></script>
+    <script src="./js/jquery.twbsPagination.min.js"></script>
+    <script>
+        // 定义每页显示的条目数和当前页码
+        var currentPage = 1;
+        var $table = $('#merchantTable');
+        var $pagination = $('#pagination');
+        var $tableBody = $('#tableBody');
+        // 获取模态框中的确定按钮
+        let confirmBtn = $('#exampleModal').find('.confirmBtn');
+
+        function loadTable(res, types) {
+            $tableBody.empty();
+            $.each(res.list, function (index, merchant) {
+                // 为每一条数据创建一个表格行
+                var $row = $('<tr>');
+                $row.append($('<td>').text(merchant.merchantId)); // 序号
+                $row.append($('<td>').text(merchant.merchantName)); // 名称
+                $row.append($('<td>').text(merchant.merchantAddress));
+                $row.append($('<td>').text(merchant.industry));
+                $row.append($('<td>').text(merchant.brand));
+                $row.append($('<td>').text(merchant.manageForm));
+                $row.append($('<td>').text(merchant.businessScope));
+
+                // 创建编辑按钮
+                var $editBtn = $('<button>').attr({
+                        'type': 'button',
+                        "data-action": "edit", // 将 data-action 属性设置为 'edit'，以便更新操作时识别
+                        "data-merchant-id": merchant.merchantId // 保存商户 ID，用于更新操作
+                    })
+                    .addClass('btn btn-light')
+                    .attr('data-bs-toggle', 'modal')
+                    .attr('data-bs-target', '#exampleModal')
+                    .text('编辑');
+                $editBtn.on('click', function () {
+                    // 点击按钮时执行的操作
+                    fillFormInputs(merchant); // 将数据填充到表单中
+                    // 添加 data-action 属性，设置为 update
+                    confirmBtn.attr({
+                        'data-action': 'update',
+                        "data-merchant-id": merchant.merchantId
+                    });
+                    console.log(confirmBtn)
+                });
+                // 填充数据到表单中
+                function fillFormInputs(row) {
+                    $('#merchant_name').val(row.merchantName);
+                    $('#merchant_address').val(row.merchantAddress);
+                    $('#industry').val(row.industry);
+                    $('#brand').val(row.brand);
+                    $('#manage_form').val(row.manageForm);
+                    $('#business_scope').val(row.businessScope);
+
+                    // 将模态框中的确定按钮 data-action 属性设置为 'update'
+                    // $('#exampleModal button[data-action="insert"]').attr('data-action', 'update');
+                }
+                // 更新操作
+                $('#exampleModal button[data-action="update"]').on('click', function () {
+                    var merchantId = $('#exampleModal button[data-action="edit"]').data(
+                        'merchant-id'); // 获取商户 ID
+                    console.log(merchantId)
+                    updateMerchant(merchantId, {
+                        merchantId: merchantId,
+                        merchantName: merchant.merchantName,
+                        merchantAddress: merchant.merchantAddress,
+                        industry: merchant.industry,
+                        brand: merchant.brand,
+                        manageForm: merchant.manageForm,
+                        businessScope: merchant.businessScope,
+                    });
+                });
+
+                function updateMerchant(merchantId, merchantData) {
+                    $.ajax({
+                        method: 'PUT',
+                        url: 'http://127.0.0.1:8080/updateMerchant/' + merchantId,
+                        contentType: 'application/json',
+                        data: JSON.stringify(merchantData),
+                        success: function (data) {
+                            console.log(data)
+                        },
+                        error: function (xhr, textStatus, errorThrown) {
+                            console.error('Error updating merchant:', xhr.status, textStatus,
+                                errorThrown);
+                        }
+                    });
+                }
+                // 创建删除按钮
+                var $deleteBtn = $('<button>').attr({
+                        'type': 'button',
+                        "data-id": merchant.merchantId,
+                    })
+                    .addClass('btn btn-danger')
+                    .text('删除');
+                $deleteBtn.on('click', function () {
+                    if (confirm("确定删除吗？")) {
+                        // 点击按钮时执行的操作
+                        var id = $(this).attr("data-id");
+                        $.ajax({
+                            type: "DELETE",
+                            url: "http://127.0.0.1:8080/deleteMerchant/" + id,
+                            success: function (data) {
+                                // 删除成功后的处理
+                                // 重新加载数据
+                                loadData(currentPage);
+                            },
+                            error: function (jqXHR, textStatus, errorThrown) {
+                                console.error(textStatus);
+                            }
+                        });
+                    }
+
+                });
+                // 将按钮添加到操作列
+                $row.append($('<td>').append($editBtn).append($deleteBtn));
+                // 将该表格行添加到表格中
+                $table.find('tbody').append($row);
+            });
+            console.log(types)
+
+            if (types === "industry") {
+                $pagination.twbsPagination({
+                    totalPages: res.pages, // 总页数
+                    visiblePages: res.navigatePages, // 显示的页码数
+                    onPageClick: function (event, page) {
+                        // 点击页码时执行的操作
+                        currentPage = page;
+                        loadIndustry(currentPage)
+
+                    }
+                });
+            } else if (types === "alldata") {
+                $pagination.twbsPagination({
+                    totalPages: res.pages, // 总页数
+                    visiblePages: res.navigatePages, // 显示的页码数
+                    onPageClick: function (event, page) {
+                        // 点击页码时执行的操作
+                        currentPage = page;
+                        loadData(currentPage)
+
+                    }
+                });
+            } else {
+                $pagination.twbsPagination({
+                    totalPages: res.pages, // 总页数
+                    visiblePages: res.navigatePages, // 显示的页码数
+                    onPageClick: function (event, page) {
+                        // 点击页码时执行的操作
+                        currentPage = page;
+                        loadSearch(currentPage)
+                    }
+                });
+            }
+
+
+        }
+
+        // 加载指定页的数据
+        function loadData(pageNo) {
+            $.ajax({
+                type: "GET", // 请求方式，可以选择"GET"或"POST"
+                url: "http://127.0.0.1:8080/getMerchants/" + parseInt(pageNo), // 服务器端接收请求的地址
+                contentType: "application/json; charset=utf-8", // 设置请求头信息
+                success: function (res) { // 成功回调函数
+                    loadTable(res, "alldata");
+                },
+                error: function (xhr, status, error) { // 失败回调函数
+                    alert(error);
+                }
+            })
+        }
+
+        var industry = ""
+        var industry_data = {}
+        $(".industry_btn").click(function () {
+            industry = $(this).text()
+            industry_data = {
+                "industry": industry
+            }
+            $pagination.twbsPagination('destroy'); // 销毁之前的分页器实例
+            loadIndustry(currentPage)
+        });
+
+        function loadIndustry(currentPage) {
+            $.ajax({
+                type: 'POST',
+                url: "http://127.0.0.1:8080/industry/" + parseInt(currentPage),
+                data: JSON.stringify(industry_data),
+                contentType: "application/json; charset=utf-8",
+                success: (req) => {
+                    loadTable(req, "industry");
+                }
+            })
+        }
+        var searchVal = ""
+        $("#button-addon2").click(function () {
+            searchVal = $(".search").val();
+            $pagination.twbsPagination('destroy');
+            loadSearch(currentPage);
+        });
+
+        function loadSearch(currentPage) {
+            $.ajax({
+                type: "GET",
+                url: "http://127.0.0.1:8080/search/" + currentPage + "?name=" + searchVal,
+                success: function (data) {
+                    loadTable(data, "search")
+                },
+                error: function (jqXHR, textStatus, errorThrown) {
+                    console.error(textStatus);
+                }
+            });
+        }
+
+        // 加载默认页的数据
+        loadData(currentPage);
+
+        $(".add_store").on("click", function () {
+            // 添加 data-action 属性，设置为 update
+            confirmBtn.attr('data-action', 'insert');
+            console.log(confirmBtn)
+            $('#merchant_name').val("");
+            $('#merchant_address').val("");
+            $('#industry').val("");
+            $('#brand').val("");
+            $('#manage_form').val("");
+            $('#business_scope').val("");
+        })
+
+        //添加商户信息
+        function addMerchant() {
+            var merchant = {};
+            merchant["merchantName"] = $("#merchant_name").val();
+            merchant["merchantAddress"] = $("#merchant_address").val();
+            merchant["industry"] = $("#industry").val();
+            merchant["brand"] = $("#brand").val();
+            merchant["manageForm"] = $("#manage_form").val();
+            merchant["businessScope"] = $("#business_scope").val();
+
+            if (checkObjectHasEmpty(merchant)) {
+                // 对象中存在空值
+                alert("请填写完整！")
+            } else {
+                // 对象中不存在空值
+                // ajax请求
+                $.ajax({
+                    type: "POST",
+                    contentType: "application/json",
+                    url: "http://127.0.0.1:8080/addMerchant", // Spring Boot后端的路由
+                    data: JSON.stringify(merchant),
+                    success: function (data) {
+                        // 处理添加成功后的操作
+                        $('#exampleModal').on('hide.bs.modal', function () {
+                            // 在模态框隐藏之前执行一些其他操作
+                            loadData(currentPage)
+                        });
+                        $('#exampleModal').modal('hide');
+                    },
+                    error: function (e) {
+                        console.log("添加失败：" + e);
+                    }
+                });
+            }
+        };
+
+        function updateMerchant(id) {
+            var merchant = {};
+            merchant["merchantName"] = $("#merchant_name").val();
+            merchant["merchantAddress"] = $("#merchant_address").val();
+            merchant["industry"] = $("#industry").val();
+            merchant["brand"] = $("#brand").val();
+            merchant["manageForm"] = $("#manage_form").val();
+            merchant["businessScope"] = $("#business_scope").val();
+
+            if (checkObjectHasEmpty(merchant)) {
+                // 对象中存在空值
+                alert("请填写完整！")
+            } else {
+                // 对象中不存在空值
+                // ajax请求
+                $.ajax({
+                    type: "PUT",
+                    contentType: "application/json",
+                    url: "http://127.0.0.1:8080/updateMerchant/" + id, // Spring Boot后端的路由
+                    data: JSON.stringify(merchant),
+                    success: function (data) {
+                        // 处理添加成功后的操作
+                        $('#exampleModal').on('hide.bs.modal', function () {
+                            // 在模态框隐藏之前执行一些其他操作
+                            loadData(currentPage)
+                        });
+                        $('#exampleModal').modal('hide');
+                        alert("修改成功")
+                    },
+                    error: function (e) {
+                        console.log("添加失败：" + e);
+                    }
+                });
+            }
+        }
+
+        function checkObjectHasEmpty(obj) {
+            for (var key in obj) {
+                if (obj.hasOwnProperty(key)) {
+                    if (!obj[key]) {
+                        return true; // 如果存在空值，直接返回 true
+                    }
+                }
+            }
+            return false; // 如果没有空值，返回 false
+        }
+
+        // 绑定点击事件处理程序
+        confirmBtn.on('click', function () {
+            console.log(this)
+            // 获取按钮上的 data-action 属性的值
+            let action = $(this).attr('data-action');
+            let id = $(this).attr('data-merchant-id');
+            // 在控制台输出 data-action 属性的值
+            if (action === "insert") {
+                addMerchant()
+            } else if (action === "update") {
+                updateMerchant(id)
+            }
+        });
+    </script>
+</body>
+
+</html>

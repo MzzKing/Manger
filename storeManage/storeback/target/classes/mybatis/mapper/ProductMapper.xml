@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.yyq.storeback.mapper.ProductMapper">
+<!--    public List<Product> getProducts();-->
+    <select id="getProducts" resultType="com.yyq.storeback.pojo.Product">
+        select * from products
+    </select>
+
+<!--    public void delProduct(Integer id);-->
+    <delete id="delProduct" parameterType="java.lang.Integer">
+        DELETE FROM products WHERE ProductID = #{ProductID}
+    </delete>
+
+<!--    public void batchDeleteByIds(List<Integer> ids);-->
+    <delete id="batchDeleteByIds" parameterType="java.util.List">
+        DELETE FROM products WHERE ProductID IN
+        <foreach collection="ids" item="id" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+
+<!--    public List<Product> searchProduct(SearchParam searchParam);-->
+    <select id="searchProduct" parameterType="com.yyq.storeback.pojo.SearchParam" resultType="com.yyq.storeback.pojo.Product">
+        SELECT *
+        FROM products
+        WHERE 1=1
+        AND (ProductID = #{items_id} OR #{items_id} IS NULL)
+        AND (ProductTitle LIKE CONCAT('%',#{items_title},'%') OR #{items_title} IS NULL)
+        AND (SupplierID = #{merchant_id} OR #{merchant_id} IS NULL)
+        AND (price BETWEEN #{price_low} AND #{price_high} OR #{price_low} IS NULL OR #{price_high} IS NULL)
+        AND (CategoryID = #{category} OR #{category} IS NULL)
+        AND (Item_type = #{good_type} OR #{good_type} IS NULL)
+        AND (Discontinued = #{discontinued} OR #{discontinued} IS NULL)
+        AND (sale_volume BETWEEN #{sale_low} AND #{sale_high} OR #{sale_low} IS NULL OR #{sale_high} IS NULL)
+        AND (status = #{status} OR #{status} IS NULL)
+        AND (is_expire = #{is_expire} OR #{is_expire} IS NULL)
+    </select>
+
+<!--    public void offSlef(List<Integer> ids);-->
+    <update id="offSlef" parameterType="java.util.List">
+        UPDATE products SET
+        status = 0
+        WHERE ProductID IN
+        <foreach collection="ids" item="id" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </update>
+<!--    public void shelves(List<Integer> ids);-->
+    <update id="shelves" parameterType="java.util.List">
+        UPDATE products SET
+        status = 1
+        WHERE ProductID IN
+        <foreach collection="ids" item="id" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </update>
+
+<!--    public List<Product> searchProductByStatus(Integer status);-->
+    <select id="searchProductByStatus" parameterType="java.lang.Integer" resultType="com.yyq.storeback.pojo.Product">
+        select * from products where status = #{status}
+    </select>
+
+<!--    public void addProduct(Product product);-->
+    <insert id="addProduct" parameterType="com.yyq.storeback.pojo.Product">
+        insert into products (ProductName, ProductTitle , SupplierID , CategoryID,Price,Stock,UnitsOnOrder,sale_volume,Item_type,create_time) values (#{ProductName}, #{ProductTitle}, #{SupplierID}, #{CategoryID},#{Price},#{Stock}, #{UnitsOnOrder}, #{saleVolume}, #{ItemType},#{createTime})
+    </insert>
+
+<!--    public void updateProduct(Product product);-->
+    <update id="updateProduct" parameterType="com.yyq.storeback.pojo.Product">
+        UPDATE products SET
+        ProductName = #{ProductName},
+        ProductTitle = #{ProductTitle},
+        SupplierID = #{SupplierID},
+        CategoryID = #{CategoryID},
+        Price = #{Price},
+        Stock = #{Stock},
+        UnitsOnOrder = #{UnitsOnOrder},
+        Item_type = #{ItemType}
+        WHERE ProductID = #{ProductID}
+    </update>
+</mapper>

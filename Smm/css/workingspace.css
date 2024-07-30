@@ -1,0 +1,81 @@
+* {
+    margin: 0;
+    padding: 0;
+}
+
+.top_bar {
+    background-color: #EFF1F8;
+    height: 60px;
+}
+
+.nav_bar ul li {
+    margin-right: 15px;
+}
+
+.user_info {
+    float: right;
+}
+
+.userArea {
+    margin-right: 10px;
+}
+
+.userArea .userName {
+    font-size: 15px;
+}
+
+.userArea .userWraper {
+    font-size: 10px;
+}
+.drop{
+    position: absolute;
+    top: 50px;
+    border-radius: 5px;
+    background-color: #fff;
+    display: none;
+    z-index: 99;
+}
+.drop div span{
+    margin-left: 10px;
+}
+.hr{
+    height: 1px;
+    width: 170px;
+    background: #f0f2f5;
+    background-color: #f0f2f5;
+    margin-left: -15px;
+    margin-top: 10px;
+}
+
+.logo,.btn_fa{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.logo img{
+    border-radius: 5px;
+}
+
+.btn_fa button{
+    border-radius: 20px;
+}
+
+.data_m div:hover{
+background-color: #368ef9;
+}
+
+.target div div{
+    cursor: pointer;
+}
+
+.v_hr{
+    height: 55px;
+    width: 1px;
+    background: #f0f2f5;
+    background-color: #f0f2f5;
+    margin-top: 5px;
+    margin-bottom: 5px;
+    margin-left: 10px;
+}
+
+

@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.yyq.storeback.mapper.MerchantMapper">
+<!--    public List<Merchant> getMercants();-->
+
+    <select id="getMercants" resultType="com.yyq.storeback.pojo.Merchant">
+        select * from merchant_basic
+    </select>
+
+<!--    public List<Merchant> getMerchantsByIndustry(String industry);-->
+    <select id="getMerchantsByIndustry" resultType="com.yyq.storeback.pojo.Merchant">
+        select * from merchant_basic where industry = #{industry}
+    </select>
+
+<!--    public List<Merchant> getMerchantsByMerchantName(String merchantName);-->
+    <select id="getMerchantsByMerchantName" resultType="com.yyq.storeback.pojo.Merchant">
+        select * from merchant_basic where merchant_name = #{merchantName}
+    </select>
+
+<!--    public void deleteMercantById(Integer merchantId);-->
+    <delete id="deleteMercantById" parameterType="java.lang.Integer">
+        DELETE FROM merchant_basic WHERE merchant_id = #{merchantId}
+    </delete>
+
+<!--    public void  addMerchant(Merchant merchant);-->
+    <insert id="addMerchant" parameterType="com.yyq.storeback.pojo.Merchant">
+        INSERT INTO merchant_basic (merchant_name, merchant_address, industry, brand, manage_form, business_scope)
+        VALUES (#{merchantName}, #{merchantAddress}, #{industry}, #{brand}, #{manageForm}, #{businessScope})
+    </insert>
+
+<!--    public Merchant getMerchantById(Integer merchantId);-->
+    <select id="getMerchantById" resultType="com.yyq.storeback.pojo.Merchant">
+        SELECT merchant_id, merchant_name, merchant_address, industry, brand, manage_form, business_scope
+        FROM merchant_basic
+        WHERE merchant_id=#{merchantId}
+    </select>
+
+<!--    public void updateMerchant(Merchant merchant);-->
+    <update id="updateMerchant" parameterType="com.yyq.storeback.pojo.Merchant">
+        UPDATE merchant_basic SET
+        merchant_name = #{merchantName},
+        merchant_address = #{merchantAddress},
+        industry = #{industry},
+        brand = #{brand},
+        manage_form = #{manageForm},
+        business_scope = #{businessScope}
+        WHERE merchant_id = #{merchantId}
+    </update>
+</mapper>

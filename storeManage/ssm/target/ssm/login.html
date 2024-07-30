@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+    <link rel="stylesheet" href="./css/bootstrap.min.css" type="text/css">
+    <link rel="stylesheet" href="./css/login.css">
+    <link rel="stylesheet" href="./font/bootstrap-icons-1.10.0/bootstrap-icons.css">
+    <style type="text/css">
+    </style>
+</head>
+
+<body style="background-color: #2D3A4B;">
+    <div class="container-scroller">
+        <div class="container-fluid p-4 px-0" style="min-height: 100vh;">
+            <div class="row w-100 mt-3 mx-0">
+                <div class="col-lg-4 mx-auto border-opacity-25 form_login p-5" style="background-color: #283443;">
+                    <h2 class="text-center text-light">Login</h2>
+                    <div class="form-group form_table">
+                        <div class="form_name">
+                            <input type="text" class="rounded-1 user_name text-light" name="user_name"
+                                style="background-color: #1c2938;">
+                            <div class="label">
+                                <i class="bi bi-person-fill"></i>
+                            </div>
+                        </div>
+                        <div></div>
+                        <div class="form_pwd">
+                            <input type="password" class="rounded-1 user_pwd text-light" name="user_pwd"
+                                style="background-color: #1c2938;">
+                            <div class="label">
+                                <i class="bi bi-shield-lock-fill"></i>
+                            </div>
+                            <div class="eye">
+                                <i class="bi bi-eye-slash-fill"></i>
+                            </div>
+                        </div>
+                        <!-- <div class="d-flex justify-content-between mb-3">
+                            <div class="form-check form-check-inline me-0">
+                                <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio1"
+                                    value="0">
+                                <label class="form-check-label text-light" for="inlineRadio1">管理员</label>
+                            </div>
+                            <div class="form-check form-check-inline me-0">
+                                <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio2"
+                                    value="1">
+                                <label class="form-check-label text-light" for="inlineRadio2">店长</label>
+                            </div>
+                            <div class="form-check form-check-inline me-0">
+                                <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio3"
+                                    value="2">
+                                <label class="form-check-label text-light" for="inlineRadio3">员工</label>
+                            </div>
+                        </div> -->
+
+                        <button type="button" class="btn btn-primary w-100 mb-3" onclick="login()">Login</button>
+                        <!-- <div></div>
+                        <div class="form-check mb-2">
+                            <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" name="checkbox">
+                            <label class="form-check-label text-light" for="flexCheckDefault">
+                                同意系统使用协议
+                            </label>
+                        </div> -->
+                        <div class="float-end"><a href="javascript:;" class="forget_pwd">忘记密码</a></div>
+                        <div>
+                            <span class="m-0 text-light">还没有账号?</span><a href="./register.html" class="">去注册</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="./js/jQuery.js"></script>
+    <script src="./js/bootstrap.min.js"></script>
+    <script>
+        // 控制密码是否显示
+        $('.eye').click(function () {
+            if ($('.eye i').attr('class') === "bi bi-eye-slash-fill") {
+                $('.eye i').attr('class', 'bi bi-eye-fill')
+                $('.form_pwd input').attr('type', 'text')
+            } else {
+                $('.eye i').attr('class', 'bi bi-eye-slash-fill')
+                $('.form_pwd input').attr('type', 'password')
+            }
+        })
+        var tips = ""
+
+        function login() {
+            var user_name = $("input[name='user_name']").val().trim();
+            var user_pwd = $("input[name='user_pwd']").val();
+            // 需要执行的登录操作
+            var data = {
+                "username": user_name,
+                "password": user_pwd
+            };
+            var url = "http://127.0.0.1:8080/loginUser";
+            if (user_name === "" || user_pwd === "") {
+                alert("账号和用户名不能为空！")
+            } else {
+                $.ajax({
+                    type: "POST", // 请求方式，可以选择"GET"或"POST"
+                    url: url, // 服务器端接收请求的地址
+                    data: JSON.stringify(data), // 将数据转换为JSON格式
+                    contentType: "application/json; charset=utf-8", // 设置请求头信息
+                    success: function (res) { // 成功回调函数
+                        console.log(res);
+                        if (res.flag==="success") {
+                            window.localStorage.setItem("User",JSON.stringify(res.data))
+                            // 0管理员，1店长，2员工
+                            if (res.data.role === 0) {
+                                window.location.href='./index.html'
+                            }
+                            else if(res.data.role === 1){
+                                window.location.href='./workingspace.html'
+                            }
+                            else{
+                                console.log("员工界面")
+                            }
+                            
+                        } else {
+                            alert(res.flag); 
+                        }
+                    },
+                    error: function (xhr, status, error) { // 失败回调函数
+                        alert(error);
+                    }
+                })
+            }
+
+
+        }
+    </script>
+</body>
+
+</html>

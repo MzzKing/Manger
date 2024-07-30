@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="./css/workingspace.css">
+    <link rel="stylesheet" href="./css/bootstrap.min.css">
+    <link rel="stylesheet" href="./font/bootstrap-icons-1.10.0/bootstrap-icons.css">
+    <link rel="stylesheet" href="./css/workingadd.css">
+    <script src="./js/jQuery.js"></script>
+</head>
+
+<body>
+    <div class="container-fluid top_bar">
+        <div class="container p-2">
+            <div class="nav_bar">
+                <ul class="nav nav-pills">
+                    <li class="nav-item">
+                        <a class="nav-link active" aria-current="page" href="./workingspace.html">店铺主页</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="./working_shopping.html">商品管理</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">员工管理</a>
+                    </li>
+                    <li style="width: 60%;"></li>
+                    <li class="d-flex user_a" style="cursor: pointer;">
+                        <div class="p-2">
+                            <img src="./images/avater.png" alt="" width="30px" height="30px" class="img align-middle">
+                        </div>
+                        <div class="userArea">
+                            <div class="userName">jerk的店铺</div>
+                            <div class="userWraper text-body-tertiary">jerk</div>
+                        </div>
+                        <i class="bi bi-chevron-down" style="line-height: 40px;font-size: 5px;"></i>
+                        <div class="drop shadow-sm border border-light-subtle" style="padding:12px 18px 0;">
+                            <div class="p-2" style="height: 50px;"><i class="bi bi-person-circle"></i><span
+                                    class="align-middle"><a href="./working_user.html" style="text-decoration: none;"
+                                        class="text-body-tertiary">账户信息</a></span></div>
+                            <div class="p-2" style="height: 50px;"><i class="bi bi-shop-window"></i><span
+                                    class="align-middle"><a href="./woring_store.html" style="text-decoration: none;"
+                                        class="text-body-tertiary">店铺信息</a></span></div>
+                            <div class="hr"></div>
+                            <div class="p-2" style="height: 50px;"><span class="align-middle">退出当前账号</span></div>
+                        </div>
+                    </li>
+                    <script>
+                        $(function () {
+                            $('.user_a').hover(function () {
+                                $('.drop').css('display', 'block')
+                            })
+                            $('.user_a').mouseleave(function () {
+                                $('.drop').css('display', 'none')
+                            })
+                        })
+                    </script>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <div class="container-fluid">
+        <div class="container pt-4">
+            <div class="mb-4">
+                <h1>商品添加</h1>
+            </div>
+            <div class="d-flex flex-wrap">
+                <div class="card border border-0 mb-5" style="width: 100%;background-color: #F8F9FB;">
+                    <div class="card-body">
+                        <h3 class="text-secondary">类目选择</h3>
+                        <div class="d-flex justify-content-around p-5">
+                            <div class="w-25">
+                                <div class="input_id p-2 me-4 ps-3">
+                                    <span class="id_label text-body-tertiary mb-3">一级类目</span>
+                                    <!-- <input type="text" name="items_id" id="items_id" class="border border-0 bg-input"
+                                autocomplete="off"> -->
+                                    <select class="form-select category" id="bg-select">
+                                        <option selected value="">选择类目</option>
+                                        <option value="1">食品</option>
+                                        <option value="2">服装</option>
+                                        <option value="3">日用品</option>
+                                        <option value="4">家电</option>
+                                        <option value="5">饰品</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="w-25">
+                                <div class="input_id p-2 me-4 ps-3">
+                                    <span class="id_label text-body-tertiary mb-3">商品类型</span>
+                                    <!-- <input type="text" name="items_id" id="items_id" class="border border-0 bg-input"
+                                        autocomplete="off"> -->
+                                    <select class="form-select good_type" id="bg-select">
+                                        <option selected value="">选择类型</option>
+                                        <option value="日需品">日需品</option>
+                                        <option value="奢侈品">奢侈品</option>
+                                        <option value="化妆品">化妆品</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="w-25">
+                                <div class="input_id p-2 me-4 ps-3">
+                                    <span class="id_label text-body-tertiary mb-3">供应商</span>
+                                    <!-- <input type="text" name="items_id" id="items_id" class="border border-0 bg-input"
+                                        autocomplete="off"> -->
+                                    <select class="form-select supplier" id="bg-select">
+                                        <option selected value="">选择供应商</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+
+                <div class="card border border-0 mb-5" style="width: 100%;background-color: #F8F9FB;">
+                    <div class="card-body">
+                        <h3 class="text-secondary">商品基本信息完善</h3>
+                        <div class="d-flex flex-wrap p-5">
+                            <div class="w-50 ps-5">
+                                <div class="input_id p-2 me-4 ps-3" style="margin-left: 150px;">
+                                    <span class="id_label text-body-tertiary">商品名称</span>
+                                    <input type="text" name="items_name" id="items_name"
+                                        class="border border-0 bg-input" autocomplete="off">
+                                </div>
+                            </div>
+                            <div class="w-50 ps-5">
+                                <div class="input_id p-2 me-4 ps-3" style="margin-left: 150px;">
+                                    <span class="id_label text-body-tertiary">价格</span>
+                                    <input type="number" name="price" id="price" class="border border-0 bg-input"
+                                        autocomplete="off">
+                                </div>
+                            </div>
+                            <div class="w-50 ps-5">
+                                <div class="input_id p-2 me-4 ps-3" style="margin-left: 150px;">
+                                    <span class="id_label text-body-tertiary">商品标题</span>
+                                    <input type="text" name="items_title" id="items_title"
+                                        class="border border-0 bg-input" autocomplete="off">
+                                </div>
+                            </div>
+                            <div class="w-50 ps-5">
+                                <div class="input_id p-2 me-4 ps-3" style="margin-left: 150px;">
+                                    <span class="id_label text-body-tertiary">订购单位</span>
+                                    <input type="number" name="UnitsOnOrder" id="UnitsOnOrder"
+                                        class="border border-0 bg-input" autocomplete="off">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="d-grid gap-2 col-3 mx-auto">
+                            <button class="btn btn-primary add" type="button">提交</button>
+                            <button class="btn btn-warning" id="clear-btn" type="button">清空</button>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="./js/bootstrap.min.js"></script>
+    <script>
+        function loadSupplier() {
+            $.ajax({
+                type: "GET",
+                url: "http://127.0.0.1:8080/suppliers/",
+                success: function (data) {
+
+                    for (var i = 0; i < data.length; i++) {
+                        $('.supplier').append($('<option></option>').attr('value', data[i].supplierID)
+                            .text(
+                                data[i].companyName));
+                    }
+                    console.log(data)
+                },
+                error: function (jqXHR, textStatus, errorThrown) {
+                    console.error(textStatus);
+                }
+            });
+        }
+        loadSupplier()
+
+        $('.add').on('click', function () {
+            // 获取input框中的值
+            var items_name = $('#items_name').val();
+            var price = $('#price').val();
+            var items_title = $('#items_title').val();
+            var UnitsOnOrder = $('#UnitsOnOrder').val();
+
+            // 获取下拉框中的值
+            var category = $('.category').find(':selected').val();
+            var good_type = $('.good_type').find(':selected').val();
+            var supplier = $('.supplier').find(':selected').val();
+
+            // 将获取到的数据组成JSON格式
+            var data = {
+                "items_name": items_name,
+                "price": price,
+                "items_title": items_title,
+                "UnitsOnOrder": UnitsOnOrder,
+                "category": category,
+                "good_type": good_type,
+                "supplier": supplier
+            };
+
+            // 发送AJAX请求到后端
+            $.ajax({
+                url: 'http://127.0.0.1:8080/addProduct',
+                type: 'POST',
+                contentType: "application/json;charset=UTF-8",
+                data: JSON.stringify(data),
+                success: function (res) {
+                    console.log(res);
+                    alert("添加成功")
+                    // 清空input框中的值
+                    $('#items_name').val("");
+                    $('#price').val("");
+                    $('#items_title').val("");
+                    $('#UnitsOnOrder').val("");
+
+                    // 清空下拉框中的值
+                    $('.category').val("");
+                    $('.good_type').val("");
+                    $('.supplier').val("");
+                },
+                error: function (err) {
+                    console.log(err);
+                }
+            });
+        });
+        $('#clear-btn').click(function () {
+            // 清空input框中的值
+            $('#items_name').val("");
+            $('#price').val("");
+            $('#items_title').val("");
+            $('#UnitsOnOrder').val("");
+
+            // 清空下拉框中的值
+            $('.category').val("");
+            $('.good_type').val("");
+            $('.supplier').val("");
+        });
+    </script>
+</body>
+
+</html>
